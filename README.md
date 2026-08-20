@@ -48,7 +48,7 @@ jobs:
   scope:
     runs-on: ubuntu-latest
     steps:
-      - uses: fp-fuyutsuki/pr-boundary@FULL_COMMIT_SHA
+      - uses: fp-fuyutsuki/pr-boundary@8f40124c658331bf4ec752462a19242ba0272661
         with:
           github-token: ${{ github.token }}
 ```
@@ -72,5 +72,4 @@ See:
 - [`docs/decision-register.md`](docs/decision-register.md)
 
 > Scope compliance is not a security review.
-
 
