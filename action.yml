@@ -1,0 +1,21 @@
+name: PR Boundary
+description: Deterministically verify pull-request paths against a trusted scope policy
+inputs:
+  github-token:
+    description: GitHub token used only for pull-request metadata and commit status APIs
+    required: true
+outputs:
+  verdict:
+    description: PASS, REVIEW_REQUIRED, or BLOCKED
+  profile:
+    description: Selected scope profile, when any
+  reason-codes:
+    description: Stable machine-readable reason codes
+  head-sha:
+    description: Evaluated PR head SHA
+runs:
+  using: node24
+  main: dist/action/index.js
+branding:
+  icon: shield
+  color: blue

@@ -1,0 +1,94 @@
+version: 1
+label_prefix: "scope:"
+
+profiles:
+  docs:
+    allow:
+      - "README.md"
+      - "docs/**"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"
+      - "CHANGELOG.md"
+
+  tests:
+    allow:
+      - "tests/**"
+      - "spec-fixtures/**"
+
+  deps:
+    allow:
+      - "package.json"
+      - "package-lock.json"
+      - "dist/action/**"
+      - "dist/cli/**"
+    allow_protected: true
+
+  core:
+    allow:
+      - "src/core/**"
+      - "tests/core/**"
+      - "dist/action/**"
+      - "dist/cli/**"
+    allow_protected: true
+
+  action:
+    allow:
+      - "action.yml"
+      - "src/github/**"
+      - "src/action-entry.ts"
+      - "dist/action/**"
+      - "tests/github/**"
+    allow_protected: true
+
+  cli:
+    allow:
+      - "src/cli/**"
+      - "src/cli-entry.ts"
+      - "bin/pr-boundary.cjs"
+      - "tests/cli/**"
+      - "dist/cli/**"
+    allow_protected: true
+
+  policy:
+    allow:
+      - ".github/pr-scope.yml"
+      - "AGENTS.md"
+      - "schemas/**"
+      - "docs/v0.1.0-spec.md"
+      - "docs/threat-model.md"
+      - "docs/decision-register.md"
+    allow_protected: true
+
+  tooling:
+    allow:
+      - "tsconfig.json"
+      - "vitest.config.mjs"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "dist/action/**"
+      - "dist/cli/**"
+    allow_protected: true
+
+  release:
+    allow:
+      - ".github/workflows/**"
+      - "package.json"
+      - "package-lock.json"
+      - "CHANGELOG.md"
+      - "dist/**"
+      - "action.yml"
+    allow_protected: true
+
+protected:
+  - ".github/workflows/**"
+  - ".github/pr-scope.yml"
+  - "AGENTS.md"
+  - "action.yml"
+  - "dist/**"
+  - "package.json"
+  - "package-lock.json"
+  - "CODEOWNERS"
+
+defaults:
+  no_profile: review

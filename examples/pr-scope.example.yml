@@ -1,0 +1,32 @@
+version: 1
+label_prefix: "scope:"
+
+profiles:
+  docs:
+    allow:
+      - "README.md"
+      - "docs/**"
+
+  tests:
+    allow:
+      - "test/**"
+      - "**/*.test.ts"
+      - "**/*.spec.ts"
+
+  ci:
+    allow:
+      - ".github/workflows/**"
+    allow_protected: true
+
+  policy:
+    allow:
+      - ".github/pr-scope.yml"
+    allow_protected: true
+
+protected:
+  - ".github/workflows/**"
+  - ".github/pr-scope.yml"
+  - "CODEOWNERS"
+
+defaults:
+  no_profile: review

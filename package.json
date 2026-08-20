@@ -1,0 +1,49 @@
+{
+  "name": "pr-boundary",
+  "version": "0.1.0",
+  "description": "Deterministically keep pull requests inside an approved repository scope.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fp-fuyutsuki/pr-boundary.git"
+  },
+  "bin": {
+    "pr-boundary": "bin/pr-boundary.cjs"
+  },
+  "files": [
+    "action.yml",
+    "bin",
+    "dist",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "github-actions",
+    "pull-request",
+    "scope",
+    "policy",
+    "deterministic"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package:review": "npm pack --dry-run"
+  },
+  "dependencies": {
+    "@actions/core": "^2.0.3",
+    "@actions/github": "^8.0.1",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@vercel/ncc": "^0.38.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

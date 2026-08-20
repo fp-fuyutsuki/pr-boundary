@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "notes": [
+    "These are behavioral contract vectors, not implementation-format fixtures.",
+    "For renamed files, both previous_path and path must be evaluated.",
+    "Protected paths require both an allow match and allow_protected=true."
+  ],
+  "cases": [
+    {
+      "id": "docs-pass",
+      "profile": "docs",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "README.md",
+        "docs/**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": "docs/install.md"
+        }
+      ],
+      "expected_verdict": "PASS",
+      "expected_reason_codes": []
+    },
+    {
+      "id": "docs-workflow-blocked",
+      "profile": "docs",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "README.md",
+        "docs/**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/workflows/release.yml"
+        }
+      ],
+      "expected_verdict": "BLOCKED",
+      "expected_reason_codes": [
+        "OUTSIDE_SCOPE",
+        "PROTECTED_PATH"
+      ]
+    },
+    {
+      "id": "ci-protected-pass",
+      "profile": "ci",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        ".github/workflows/**"
+      ],
+      "allow_protected": true,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/workflows/release.yml"
+        }
+      ],
+      "expected_verdict": "PASS",
+      "expected_reason_codes": []
+    },
+    {
+      "id": "broad-allow-still-blocks-protected",
+      "profile": "broad",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/workflows/release.yml"
+        }
+      ],
+      "expected_verdict": "BLOCKED",
+      "expected_reason_codes": [
+        "PROTECTED_PATH"
+      ]
+    },
+    {
+      "id": "no-profile-strict",
+      "profile": null,
+      "no_profile_mode": "review",
+      "profile_allow": [],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": "src/index.ts"
+        }
+      ],
+      "expected_verdict": "REVIEW_REQUIRED",
+      "expected_reason_codes": [
+        "NO_PROFILE"
+      ]
+    },
+    {
+      "id": "no-profile-migration-pass",
+      "profile": null,
+      "no_profile_mode": "pass",
+      "profile_allow": [],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": "src/index.ts"
+        }
+      ],
+      "expected_verdict": "PASS",
+      "expected_reason_codes": []
+    },
+    {
+      "id": "no-profile-migration-protected-block",
+      "profile": null,
+      "no_profile_mode": "pass",
+      "profile_allow": [],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/workflows/test.yml"
+        }
+      ],
+      "expected_verdict": "BLOCKED",
+      "expected_reason_codes": [
+        "PROTECTED_PATH"
+      ]
+    },
+    {
+      "id": "rename-allowed",
+      "profile": "docs",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "docs/**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "renamed",
+          "previous_path": "docs/old.md",
+          "path": "docs/new.md"
+        }
+      ],
+      "expected_verdict": "PASS",
+      "expected_reason_codes": []
+    },
+    {
+      "id": "rename-protected-old-path-blocked",
+      "profile": "docs",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "docs/**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/workflows/**"
+      ],
+      "changes": [
+        {
+          "status": "renamed",
+          "previous_path": ".github/workflows/release.yml",
+          "path": "docs/release.yml"
+        }
+      ],
+      "expected_verdict": "BLOCKED",
+      "expected_reason_codes": [
+        "OUTSIDE_SCOPE",
+        "PROTECTED_PATH"
+      ]
+    },
+    {
+      "id": "policy-self-change-docs-blocked",
+      "profile": "docs",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        "README.md",
+        "docs/**"
+      ],
+      "allow_protected": false,
+      "protected": [
+        ".github/pr-scope.yml"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/pr-scope.yml"
+        }
+      ],
+      "expected_verdict": "BLOCKED",
+      "expected_reason_codes": [
+        "OUTSIDE_SCOPE",
+        "PROTECTED_PATH"
+      ]
+    },
+    {
+      "id": "policy-explicit-profile-pass",
+      "profile": "policy",
+      "no_profile_mode": "review",
+      "profile_allow": [
+        ".github/pr-scope.yml"
+      ],
+      "allow_protected": true,
+      "protected": [
+        ".github/pr-scope.yml"
+      ],
+      "changes": [
+        {
+          "status": "modified",
+          "path": ".github/pr-scope.yml"
+        }
+      ],
+      "expected_verdict": "PASS",
+      "expected_reason_codes": []
+    }
+  ]
+}
