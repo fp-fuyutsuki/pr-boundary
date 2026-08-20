@@ -1,0 +1,29 @@
+name: PR Boundary
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - unlabeled
+      - edited
+      - ready_for_review
+
+concurrency:
+  group: pr-boundary-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+  statuses: write
+
+jobs:
+  scope:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fp-fuyutsuki/pr-boundary@8f40124c658331bf4ec752462a19242ba0272661
+        with:
+          github-token: ${{ github.token }}
